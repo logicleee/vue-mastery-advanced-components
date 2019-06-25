@@ -1,5 +1,5 @@
-let data = { price: 5, quantity: 2 }
-let target, total, salePrice
+let data = { price: 5, quantity: 2 };
+let target, total, salePrice;
 
 class Dep {
   constructor() {
@@ -16,30 +16,30 @@ class Dep {
 }
 
 Object.keys(data).forEach(key => {
-    let internalValue = data[key]
+  let internalValue = data[key];
 
-    const dep = new Dep()
+  const dep = new Dep();
 
-    Object.defineProperty(data, key, {
-        get() {
-            dep.depend()
-            return internalValue
-        },
-        set(newVal) {
-            internalValue = newVal
-            dep.notify()
-        }
-    })
-})
+  Object.defineProperty(data, key, {
+    get() {
+      dep.depend();
+      return internalValue;
+    },
+    set(newVal) {
+      internalValue = newVal;
+      dep.notify();
+    }
+  });
+});
 
 function watcher(myFunc) {
-  target = myFunc
-  target()
-  target = null
+  target = myFunc;
+  target();
+  target = null;
 }
 watcher(() => {
-    total = data.price * data.quantity
-})
+  total = data.price * data.quantity;
+});
 watcher(() => {
-    salePrice = data.price * 0.9
-})
+  salePrice = data.price * 0.9;
+});
